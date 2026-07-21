@@ -1,0 +1,354 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* 安全区变量 */
+  --safe-top: env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
+  --safe-left: env(safe-area-inset-left);
+  --safe-right: env(safe-area-inset-right);
+
+  /* 根基准规范 —— 修复2 全局16px文字体系 */
+  --base-font: 16px;
+  --line-height: 1.5;
+  --gap-sm: 8px;
+  --gap-md: 12px;
+  --radius-base: 8px;
+  --radius-card: 12px;
+
+  /* 色彩变量 */
+  --primary: #4080ff;
+  --primary-light: #5c9aff;
+  --danger: #F53F3F;
+  --text-gray: #8c8c8c;
+  --arch-opacity: 0.6;
+  --transition: all 0.2s ease;
+
+  /* 主题占位（你原有样式用到的） */
+  --bg-card: #fff;
+  --text: #333;
+  --border: #e5e6eb;
+}
+
+html {
+  font-size: var(--base-font);
+  line-height: var(--line-height);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  padding-top: var(--safe-top);
+}
+
+#app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px 20px;
+  padding-bottom: calc(100px + var(--safe-bottom));
+}
+
+/* 卡片 */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+/* 按钮 */
+.btn {
+  appearance: none;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--primary-light);
+}
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+.btn:active {
+  opacity: 0.9;
+}
+
+/* 输入框 */
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 15px;
+  transition: border 0.2s ease;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* 移动端交互优化 */
+a, button, .task-item {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* 全局滚动条隐藏 */
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* 文字层级 */
+.text-h1 { font-size: 20px; font-weight: 600; }
+.text-h2 { font-size: 18px; font-weight: 500; }
+.text-desc { font-size: 14px; color: var(--text-gray); }
+.text-tiny { font-size: 12px; color: var(--text-gray); }
+
+/* 文本省略 */
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.text-ellipsis:hover { overflow: visible; }
+
+p {
+  margin-bottom: var(--gap-md);
+}
+ul, ol {
+  padding-left: var(--gap-md);
+}
+ul ul ul {
+  max-width: 480px;
+  display: grid;
+  gap: var(--gap-sm);
+}
+
+/* 修复1：手势隔离 */
+.gesture-lock {
+  touch-action: none;
+  pointer-events: auto;
+}
+.gesture-lock * {
+  touch-action: none;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+.modal-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 99;
+}
+
+.btn-throttle {
+  pointer-events: auto;
+}
+.btn-throttle:active {
+  pointer-events: none;
+}
+
+/* 修复3：小屏表格转卡片 */
+@media (max-width: 480px) {
+  .data-table { display: block; }
+  .data-table tr {
+    display: grid;
+    gap: var(--gap-sm);
+    padding: var(--gap-md);
+    border-radius: var(--radius-card);
+    background: var(--bg-card);
+    margin-bottom: var(--gap-sm);
+  }
+  .data-table td {
+    display: flex;
+  }
+  .data-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    margin-right: 4px;
+  }
+}
+@media (max-width: 360px) {
+  .data-table tr {
+    padding: var(--gap-sm);
+  }
+}
+
+/* 修复4：二级空心标签 */
+.second-tag {
+  border: 1px solid var(--primary);
+  background: rgba(64, 128, 255, 0.08);
+  border-radius: var(--radius-base);
+  padding: 4px 10px;
+  transition: var(--transition);
+}
+.second-tag:hover {
+  background: rgba(64, 128, 255, 0.15);
+}
+.second-tag.disabled {
+  border-color: #d9d9d9;
+  background: #f5f5f5;
+  color: var(--text-gray);
+  pointer-events: none;
+}
+
+/* 修复5：DOM销毁退场动画 */
+.fade-leave {
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+.fade-leave-active {
+  opacity: 0;
+  pointer-events: none;
+}
+.page-wrap {
+  scroll-behavior: auto;
+}
+
+/* 修复6：归档只读置灰 */
+.archive-readonly {
+  opacity: var(--arch-opacity);
+  pointer-events: none;
+  user-select: none;
+}
+.archive-readonly .card-item {
+  box-shadow: none;
+}
+.archive-readonly .slide-handle {
+  display: none;
+}
+
+/* 深色模式统一适配 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-card: #1c1c1e;
+    --text: #f0f0f0;
+    --border: #3a3a3c;
+    --text-gray: #a0a0a0;
+  }
+  .archive-readonly {
+    background: rgba(255,255,255,0.05);
+  }
+  .second-tag.disabled {
+    background: #2c2c2e;
+    border-color: #444;
+  }
+}
+
+/* ========== 全局遗漏样式补齐 ========== */
+/* 二元开关通用 */
+.toggle-btn {
+  width: 44px;
+  height: 28px;
+  border-radius: 14px;
+  background: var(--border);
+  position: relative;
+  transition: var(--transition);
+}
+.toggle-btn::after {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  border-radius: 50%;
+  left: 3px;
+  top: 3px;
+  transition: var(--transition);
+}
+.toggle-btn.on {
+  background: var(--primary);
+}
+.toggle-btn.on::after {
+  transform: translateX(16px);
+}
+
+/* 边界阻尼回弹遮罩 */
+.edge-damping {
+  position: relative;
+  overflow-x: hidden;
+}
+.edge-damping::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+  height: 100%;
+  background: linear-gradient(to left, var(--bg), transparent);
+  pointer-events: none;
+}
+
+/* PWA 离线提示条 */
+.offline-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 6px 16px;
+  background: var(--warning);
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  z-index: 999;
+}
+
+/* 数据库自检状态 */
+.db-checking { color: var(--primary); }
+.db-clean-success { color: var(--success); }
+
+/* 全域空状态兜底 */
+.empty-box {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--text-fade);
+}
+
+/* 手势隔离兜底（原 gesture.css） */
+.no-gesture {
+  touch-action: none;
+  user-select: none;
+}
+
+/* 原 card-common.css 合并至此 */
+/* 周期摘要展开收起 */
+.summary-collapse {
+  max-height: 80px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.summary-collapse.expand {
+  max-height: 2000px;
+}
+
+/* 复盘空状态 */
+.chart-empty {
+  height: 200px;
+  display: grid;
+  place-items: center;
+  color: var(--text-fade);
+}

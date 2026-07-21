@@ -1,0 +1,31 @@
+/* PMS3.0 Layer1 全局骨架屏｜三大页面异步加载占位 */
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-soft) 25%, var(--border-light) 50%, var(--bg-soft) 75%);
+  background-size: 200% 100%;
+  border-radius: 10px;
+  animation: skeleton-loading 1.5s infinite ease-in-out;
+}
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+/* 组件级骨架变体 */
+.skeleton-card {
+  height: 88px;
+  width: 100%;
+}
+.skeleton-task {
+  height: 56px;
+  width: 100%;
+  margin-bottom: 8px;
+  border-radius: 12px;
+}
+.skeleton-text {
+  height: 14px;
+  width: 60%;
+  margin-bottom: 6px;
+}
+.skeleton-text.sm {
+  height: 12px;
+  width: 40%;
+}

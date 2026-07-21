@@ -1,0 +1,40 @@
+# 构建产物 & 依赖
+node_modules/
+dist/
+.vite/
+.out/
+coverage/
+
+# 环境密钥（核心安全隔离，Push Protection拦截源头）
+.env
+.env.local
+.env.development
+.env.production
+.env.*.local
+
+# GitHub专属忽略项（根治Doc4缓存污染）
+.github/workflows/.env
+.devcontainer/.cache
+codespace/
+.vscode/codespaces/
+*.github.dev/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 编辑器配置
+.vscode/
+.idea/
+*.swp
+*.swo
+*.suo
+
+# 日志缓存
+*.log
+.eslintcache
+.npm/
+yarn-error.log
+
+# PWA缓存
+.pwa/

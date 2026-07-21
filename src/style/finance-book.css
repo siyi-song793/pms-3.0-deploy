@@ -1,0 +1,409 @@
+/* ===== 个人记账独立页面样式 ===== */
+
+/* 页面容器 */
+.finance-page {
+  padding: 0 var(--safe-padding, 16px) calc(var(--safe-bottom, 0px) + 80px);
+  max-width: var(--max-width, 480px);
+  margin: 0 auto;
+}
+
+/* 第一层：月度收支总览双卡片 */
+.finance-month-overview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.finance-overview-card {
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, #e8e8e8);
+  border-radius: var(--radius-lg, 14px);
+  padding: 16px;
+  text-align: center;
+}
+
+.finance-overview-card.income-card {
+  border-top: 3px solid var(--color-income, #34A853);
+}
+
+.finance-overview-card.expense-card {
+  border-top: 3px solid var(--color-expense, #EA4335);
+}
+
+.fo-label {
+  font-size: 12px;
+  color: var(--text-hint, #999);
+  margin-bottom: 6px;
+}
+
+.fo-amount {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.income-amount {
+  color: var(--color-income, #34A853);
+}
+
+.expense-amount {
+  color: var(--color-expense, #EA4335);
+}
+
+/* 第二层：当日收支统计栏 */
+.finance-today-stats {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.ft-stat {
+  flex: 1;
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, #e8e8e8);
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-align: center;
+}
+
+.ft-label {
+  display: block;
+  font-size: 11px;
+  color: var(--text-hint, #999);
+  margin-bottom: 4px;
+}
+
+.ft-value {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* 第三层：记账录入表单区 */
+.finance-form-section {
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, #e8e8e8);
+  border-radius: var(--radius-lg, 14px);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.finance-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a2e);
+  margin-bottom: 12px;
+}
+
+.finance-type-toggle {
+  display: flex;
+  gap: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border, #e8e8e8);
+  margin-bottom: 14px;
+}
+
+.fin-type-btn {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--text-soft, #666);
+  transition: all 0.2s;
+}
+
+.fin-type-btn.active-income {
+  background: var(--color-income, #34A853);
+  color: #fff;
+}
+
+.fin-type-btn.active-expense {
+  background: var(--color-expense, #EA4335);
+  color: #fff;
+}
+
+.finance-amount-input-wrap {
+  margin-bottom: 14px;
+}
+
+.finance-amount-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border, #e8e8e8);
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  outline: none;
+  box-sizing: border-box;
+  background: var(--bg-soft, #f5f5f5);
+  color: var(--text-primary, #1a1a2e);
+}
+
+.finance-amount-input:focus {
+  border-color: var(--color-finance, #D4AC0D);
+}
+
+.finance-amount-input::placeholder {
+  color: var(--text-hint, #999);
+  font-weight: 400;
+}
+
+.fin-cat-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  margin-bottom: 14px;
+}
+
+.fin-cat-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.fin-cat-pill {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border, #e8e8e8);
+  background: transparent;
+  color: var(--text-soft, #666);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fin-cat-pill.active {
+  border-color: var(--color-finance, #D4AC0D);
+  background: var(--color-finance-bg, rgba(212, 172, 13, 0.08));
+  color: var(--color-finance, #D4AC0D);
+  font-weight: 600;
+}
+
+.fin-cat-pill:active {
+  opacity: 0.7;
+}
+
+.finance-remark-wrap {
+  margin-bottom: 14px;
+}
+
+.finance-remark-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border, #e8e8e8);
+  border-radius: 10px;
+  font-size: 13px;
+  outline: none;
+  box-sizing: border-box;
+  background: var(--bg-soft, #f5f5f5);
+  color: var(--text-primary, #1a1a2e);
+}
+
+.finance-remark-input:focus {
+  border-color: var(--color-finance, #D4AC0D);
+}
+
+.finance-remark-input::placeholder {
+  color: var(--text-hint, #999);
+}
+
+.finance-submit-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: var(--color-finance, #D4AC0D);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.finance-submit-btn:active {
+  opacity: 0.85;
+}
+
+/* 第四层：收支筛选栏 */
+.finance-filter-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.fin-filter-btn {
+  padding: 6px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--border, #e8e8e8);
+  background: transparent;
+  color: var(--text-soft, #666);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fin-filter-btn.active {
+  background: var(--primary, #2E7D32);
+  color: #fff;
+  border-color: var(--primary, #2E7D32);
+}
+
+/* 第五层：历史明细列表 */
+.finance-record-section {
+  margin-bottom: 16px;
+}
+
+.finance-record-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.finance-record-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, #e8e8e8);
+  border-radius: 10px;
+}
+
+.finance-record-item.income-item {
+  border-left: 3px solid var(--color-income, #34A853);
+}
+
+.finance-record-item.expense-item {
+  border-left: 3px solid var(--color-expense, #EA4335);
+}
+
+.fr-type-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.fr-type-tag.income-tag {
+  background: var(--color-income-bg, rgba(52, 168, 83, 0.08));
+  color: var(--color-income, #34A853);
+}
+
+.fr-type-tag.expense-tag {
+  background: var(--color-expense-bg, rgba(234, 67, 53, 0.08));
+  color: var(--color-expense, #EA4335);
+}
+
+.fr-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fr-cat {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary, #1a1a2e);
+}
+
+.fr-remark {
+  font-size: 11px;
+  color: var(--text-hint, #999);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fr-amount {
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.fr-amount.income-amt {
+  color: var(--color-income, #34A853);
+}
+
+.fr-amount.expense-amt {
+  color: var(--color-expense, #EA4335);
+}
+
+.fr-del-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--border, #e8e8e8);
+  border-radius: 6px;
+  font-size: 11px;
+  background: transparent;
+  color: var(--text-hint, #999);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.fr-del-btn:active {
+  background: var(--color-expense, #EA4335);
+  color: #fff;
+  border-color: var(--color-expense, #EA4335);
+}
+
+/* 空状态 */
+.finance-page .empty-state {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.finance-page .empty-icon {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.finance-page .empty-text {
+  font-size: 14px;
+  color: var(--text-soft, #666);
+  margin-bottom: 4px;
+}
+
+.finance-page .empty-hint {
+  font-size: 12px;
+  color: var(--text-hint, #999);
+}
+
+/* 深色模式 */
+@media (prefers-color-scheme: dark) {
+  .fin-cat-pill.active {
+    background: rgba(212, 172, 13, 0.15);
+  }
+  .fin-type-btn.active-income {
+    background: var(--color-income, #34A853);
+  }
+  .fin-type-btn.active-expense {
+    background: var(--color-expense, #EA4335);
+  }
+}
+
+/* 移动端适配 */
+@media (max-width: 480px) {
+  .fo-amount {
+    font-size: 18px;
+  }
+  .ft-value {
+    font-size: 13px;
+  }
+  .finance-amount-input {
+    font-size: 16px;
+  }
+}

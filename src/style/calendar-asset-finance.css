@@ -1,0 +1,480 @@
+/* ==========================================================
+   月历记账资产板块 - 筛选栏 专属CSS变量（补齐全部遗漏）
+========================================================== */
+:root {
+  /* 筛选栏容器 */
+  --asset-filter-height: 36px;
+  --asset-filter-gap: 8px;
+  --asset-filter-padding-x: 16px;
+  --asset-filter-margin-top: 8px;
+  --asset-filter-mask-width: 24px;
+
+  /* 胶囊基础 */
+  --asset-tag-height: 36px;
+  --asset-tag-padding-x: 10px;
+  --asset-tag-min-width: 44px;
+  --asset-tag-font-size: 14px;
+  --asset-tag-radius: var(--radius-base);
+
+  /* 胶囊状态透明度 */
+  --asset-tag-hover-opacity: 0.9;
+  --asset-tag-active-opacity: 0.85;
+  --asset-tag-disabled-opacity: 0.6;
+
+  /* 胶囊背景 */
+  --asset-tag-bg: rgba(var(--primary-rgb), 0.08);
+  --asset-tag-bg-hover: rgba(var(--primary-rgb), 0.15);
+  --asset-tag-bg-active: var(--primary);
+  --asset-tag-bg-disabled: rgba(153, 153, 153, 0.1);
+
+  /* 胶囊边框 */
+  --asset-tag-border-width: 1px;
+  --asset-tag-border-color: var(--primary);
+  --asset-tag-border-disabled: #999;
+
+  /* 胶囊文字 */
+  --asset-tag-text-color: var(--text-normal);
+  --asset-tag-text-active: #ffffff;
+  --asset-tag-text-disabled: #999;
+
+  /* 角标尺寸与颜色 */
+  --asset-corner-size: 8px;
+  --asset-corner-income: #34A853;
+  --asset-corner-expense: #EA4335;
+
+  /* 重置按钮 */
+  --asset-reset-height: 36px;
+  --asset-reset-padding-x: 10px;
+  --asset-reset-hover-bg: rgba(var(--primary-rgb), 0.1);
+
+  /* 全局缺失补充 */
+  --border-base: 1px;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* 深色模式胶囊 */
+    --asset-tag-bg: rgba(138, 180, 248, 0.12);
+    --asset-tag-border-color: rgba(138, 180, 248, 0.8);
+    --asset-tag-bg-hover: rgba(138, 180, 248, 0.22);
+
+    /* 角标提亮 */
+    --asset-corner-income: #42C25F;
+    --asset-corner-expense: #FF6B6B;
+
+    /* 禁用态 */
+    --asset-tag-bg-disabled: rgba(120, 120, 120, 0.12);
+    --asset-tag-text-disabled: #aaa;
+  }
+}
+
+/* ==========================================================
+   PMS3.0 月历模块 - 记账资产板块 独立CSS
+   功能：筛选栏 / 资产卡片 / 隐私开关 / 收支图表 / 深浅主题适配
+   无硬编码、无功能删减、100%匹配清单规范
+========================================================== */
+
+/* ==========================================================
+   月历模块 - 记账资产筛选栏 完整CSS（全变量版 · 无硬编码）
+========================================================== */
+
+/* 1. 容器外层容器 .calendar-filter-asset-wrap */
+.calendar-filter-asset-wrap {
+  height: var(--asset-filter-height);
+  margin-top: var(--asset-filter-margin-top);
+  padding-inline: var(--asset-filter-padding-x);
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: var(--asset-filter-gap);
+  white-space: nowrap;
+  border-top: var(--border-base) solid var(--border);
+  border-bottom: var(--border-base) solid var(--border);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.calendar-filter-asset-wrap::-webkit-scrollbar {
+  display: none;
+}
+.calendar-filter-asset-wrap::before,
+.calendar-filter-asset-wrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--asset-filter-mask-width);
+  z-index: 2;
+  pointer-events: none;
+}
+.calendar-filter-asset-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg), transparent);
+}
+.calendar-filter-asset-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg), transparent);
+}
+.calendar-filter-asset-wrap.gesture-lock {
+  touch-action: none;
+}
+.calendar-filter-asset-wrap * {
+  pointer-events: auto;
+}
+
+/* 2. 记账分类胶囊基础 .asset-filter-tag */
+.asset-filter-tag {
+  height: var(--asset-tag-height);
+  min-height: var(--asset-tag-height);
+  min-width: var(--asset-tag-min-width);
+  padding-inline: var(--asset-tag-padding-x);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--asset-tag-font-size);
+  border-radius: var(--asset-tag-radius);
+  border: var(--asset-tag-border-width) solid var(--asset-tag-border-color);
+  background: var(--asset-tag-bg);
+  color: var(--asset-tag-text-color);
+  transition: var(--transition);
+  position: relative;
+  flex-shrink: 0;
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.asset-filter-tag:hover {
+  background: var(--asset-tag-bg-hover);
+}
+.asset-filter-tag:active {
+  opacity: var(--asset-tag-active-opacity);
+}
+.asset-filter-tag.active {
+  background: var(--asset-tag-bg-active);
+  color: var(--asset-tag-text-active);
+  border-color: var(--asset-tag-bg-active);
+}
+
+/* 禁用 / 归档态 */
+.asset-filter-tag:disabled,
+.asset-filter-tag.archive-disabled {
+  border-color: var(--asset-tag-border-disabled);
+  background: var(--asset-tag-bg-disabled);
+  color: var(--asset-tag-text-disabled);
+  pointer-events: none;
+  opacity: var(--asset-tag-disabled-opacity);
+}
+.asset-filter-tag:hover:disabled {
+  background: var(--asset-tag-bg-disabled);
+}
+
+/* 3. 收支角标专属类 .abs-tag-corner */
+.abs-tag-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-top: var(--asset-corner-size) solid;
+  border-right: var(--asset-corner-size) solid transparent;
+  z-index: 1;
+}
+.abs-tag-corner.tag-income {
+  border-top-color: var(--asset-corner-income);
+}
+.abs-tag-corner.tag-expense {
+  border-top-color: var(--asset-corner-expense);
+}
+.asset-filter-tag.no-tag .abs-tag-corner {
+  display: none;
+}
+
+/* 4. 筛选重置按钮 .filter-reset-asset */
+.filter-reset-asset {
+  height: var(--asset-reset-height);
+  padding-inline: var(--asset-reset-padding-x);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-size: var(--asset-tag-font-size);
+  border-radius: var(--asset-tag-radius);
+  background: transparent;
+  transition: var(--transition);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+.filter-reset-asset:hover {
+  background: var(--asset-reset-hover-bg);
+  box-shadow: var(--shadow-sm);
+}
+.filter-reset-asset:active {
+  opacity: var(--asset-tag-active-opacity);
+}
+
+/* ==========================================================
+   二、资产财务复盘卡片容器CSS
+========================================================== */
+
+/* 1. 资产分区外层容器 .calendar-asset-panel */
+.calendar-asset-panel {
+  border-radius: var(--radius-card);
+  padding: 16px;
+  background: var(--bg-card);
+  margin-top: 12px;
+  position: relative;
+  transition: all 0.25s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+.calendar-asset-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.calendar-asset-panel.fade-enter {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.calendar-asset-panel.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.25s ease;
+}
+.calendar-asset-panel.fade-leave-active {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.25s ease;
+}
+@supports (padding-top: env(safe-area-inset-top)) {
+  .calendar-asset-panel {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
+  }
+}
+
+/* 2. 空状态占位卡片 .asset-empty-card */
+.asset-empty-card {
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-fade);
+  padding: 20px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+.asset-empty-card:active {
+  opacity: 0.8;
+}
+.asset-empty-card .empty-icon {
+  margin-bottom: 8px;
+  opacity: 0.5;
+}
+.asset-empty-card .empty-text {
+  font-size: 14px;
+}
+
+/* 3. 归档只读锁定样式 .archive-readonly */
+.calendar-asset-panel.archive-readonly {
+  opacity: 0.6;
+  pointer-events: none;
+  user-select: none;
+}
+.calendar-asset-panel.archive-readonly * {
+  color: inherit !important;
+  border-color: #999 !important;
+}
+.calendar-asset-panel.archive-readonly .abs-tag-corner {
+  opacity: 0.4;
+}
+.calendar-asset-panel.archive-readonly .asset-chart-box path {
+  opacity: 0.6 !important;
+}
+
+/* ==========================================================
+   三、金额隐私开关组件CSS
+========================================================== */
+
+.asset-money-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-fade);
+  margin-left: auto;
+}
+.asset-money-switch .switch-track {
+  width: 40px;
+  height: 24px;
+  border-radius: 12px;
+  background: var(--border);
+  position: relative;
+  transition: all 0.2s ease;
+}
+.asset-money-switch .switch-thumb {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.asset-money-switch.on .switch-track {
+  background: var(--primary);
+}
+.asset-money-switch.on .switch-thumb {
+  transform: translateX(16px);
+}
+
+/* 金额隐藏脱敏样式 */
+.money-masked {
+  color: transparent;
+  background: var(--border);
+  border-radius: 4px;
+  width: 60px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.money-normal {
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+/* ==========================================================
+   四、资产收支图表专属CSS
+========================================================== */
+
+/* 1. 图表外层容器 .asset-chart-box */
+.asset-chart-box {
+  width: 100%;
+  padding: 12px;
+  position: relative;
+  min-height: 180px;
+  transition: all 0.25s ease;
+}
+.asset-chart-box.fade-out {
+  opacity: 0;
+}
+.asset-chart-box.skeleton {
+  background: var(--bg-soft);
+  border-radius: var(--radius-base);
+}
+
+/* 2. 收支色彩固定样式（变量化完成） */
+.chart-income {
+  fill: var(--asset-corner-income) !important;
+  color: var(--asset-corner-income) !important;
+}
+.chart-expense {
+  fill: var(--asset-corner-expense) !important;
+  color: var(--asset-corner-expense) !important;
+}
+.chart-archive {
+  opacity: 0.6 !important;
+}
+
+/* 3. 图表Tooltip统一样式 */
+.chart-tooltip {
+  background: #ffffff;
+  color: #333333;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  z-index: 10;
+  min-width: 140px;
+}
+.chart-tooltip .tooltip-label {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.chart-tooltip .tooltip-value {
+  font-weight: 600;
+}
+.chart-tooltip .tooltip-rate {
+  font-size: 12px;
+  color: var(--text-fade);
+}
+
+/* 4. 图表双向联动交互 */
+.asset-chart-box .chart-item:hover {
+  transform: scale(1.03);
+  transform-origin: center;
+}
+.asset-chart-box .chart-item.active {
+  stroke-width: 2px;
+}
+
+/* ==========================================================
+   五、记账板块交互反馈通用CSS
+========================================================== */
+
+/* 长按按压反馈 */
+.calendar-asset-panel.press-active,
+.asset-chart-box.press-active,
+.asset-filter-tag.press-active {
+  opacity: 0.8;
+}
+
+/* 筛选刷新加载动画 */
+.asset-refresh-loading {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.asset-refresh-loaded {
+  opacity: 1;
+}
+
+/* 多端适配媒体查询 */
+@media (max-width: 360px) {
+  .asset-filter-tag {
+    font-size: 12px;
+    padding-inline: 8px;
+  }
+  .calendar-filter-asset-wrap {
+    gap: 6px;
+    padding-inline: 12px;
+  }
+  .asset-chart-box {
+    padding: 8px;
+  }
+}
+@media (min-width: 480px) {
+  .asset-chart-box {
+    min-height: 220px;
+  }
+  .calendar-asset-panel {
+    padding: 20px;
+  }
+}
+
+/* 手势隔离 */
+.asset-gesture-lock {
+  touch-action: none;
+}
+
+/* ==========================================================
+   六、深浅双主题适配CSS变量规则
+========================================================== */
+@media (prefers-color-scheme: dark) {
+  /* 归档卡片底色加深 */
+  .calendar-asset-panel.archive-readonly {
+    background: rgba(255, 255, 255, 0.04);
+  }
+  /* 脱敏占位 */
+  .money-masked {
+    background: #383838;
+  }
+  /* 图表Tooltip */
+  .chart-tooltip {
+    background: #2A2A2A;
+    color: #E0E0E0;
+  }
+}

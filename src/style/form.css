@@ -1,0 +1,147 @@
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 90px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 15px;
+  resize: vertical;
+}
+.textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.form-time-row {
+  display: flex;
+  gap: 12px;
+}
+.form-time-row .form-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.priority-selector {
+  display: flex;
+  gap: 8px;
+}
+.priority-option {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  font-size: 14px;
+}
+.priority-option.active {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #fff;
+}
+.priority-option.urgent.active {
+  background: var(--danger);
+  border-color: var(--danger);
+}
+.priority-option.low.active {
+  background: var(--text-fade);
+  border-color: var(--text-fade);
+}
+
+/* ========== 修复8：筛选胶囊44px热区 ========== */
+.capsule-wrap {
+  display: flex;
+  gap: var(--gap-sm);
+  flex-wrap: wrap;
+}
+.capsule-item {
+  min-width: 44px;
+  height: 44px;
+  padding-inline: 12px;
+  display: grid;
+  place-items: center;
+  border-radius: 22px;
+  flex-shrink: 0;
+}
+.capsule-item.primary {
+  background: var(--primary);
+  color: #fff;
+}
+.capsule-item.active::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  margin-left: 4px;
+}
+.capsule-scroll {
+  position: relative;
+  overflow-x: auto;
+}
+
+/* ========== 修复9：2×2复盘栅格 ========== */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.dashboard-card {
+  border-radius: var(--radius-card);
+  padding: 16px;
+  background: var(--bg-card);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  transition: var(--transition);
+}
+.dashboard-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.09);
+}
+@media (max-width: 480px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+}
+.card-empty {
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  color: var(--text-fade);
+}
+
+/* 月/季/年 三视图切换 */
+.view-switch {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--bg-soft);
+  border-radius: 18px;
+}
+.view-switch-item {
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-size: 14px;
+}
+.view-switch-item.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* 重置筛选按钮 */
+.btn-filter-reset {
+  height: 36px;
+  padding: 0 10px;
+  font-size: 14px;
+  color: var(--text-fade);
+}

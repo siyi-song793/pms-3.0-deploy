@@ -1,0 +1,176 @@
+/* ==========================================================
+   记账资产筛选栏 专属变量（浅色模式）
+========================================================== */
+:root {
+  --asset-filter-height: 36px;
+  --asset-filter-margin-top: 8px;
+  --asset-filter-padding-x: 16px;
+  --asset-filter-gap: 8px;
+  --asset-filter-mask-width: 24px;
+
+  --asset-tag-height: 36px;
+  --asset-tag-padding-x: 10px;
+  --asset-tag-min-width: 44px;
+  --asset-tag-font-size: 14px;
+  --asset-tag-radius: var(--radius-base);
+  --asset-tag-border-width: 1px;
+
+  --asset-tag-bg: rgba(var(--primary-rgb), 0.08);
+  --asset-tag-bg-hover: rgba(var(--primary-rgb), 0.15);
+  --asset-tag-bg-active: var(--primary);
+  --asset-tag-border-color: var(--primary);
+
+  --asset-tag-text-color: var(--text-normal);
+  --asset-tag-text-active: #fff;
+
+  --asset-tag-active-opacity: 0.85;
+  --asset-tag-disabled-opacity: 0.6;
+
+  --asset-tag-bg-disabled: rgba(153, 153, 153, 0.1);
+  --asset-tag-border-disabled: #999;
+  --asset-tag-text-disabled: #999;
+
+  --asset-corner-size: 8px;
+  --asset-corner-income: #34A853;
+  --asset-corner-expense: #EA4335;
+
+  --asset-reset-height: 36px;
+  --asset-reset-padding-x: 10px;
+  --asset-reset-hover-bg: rgba(var(--primary-rgb), 0.1);
+}
+
+/* ==========================================================
+   深色模式专属变量
+========================================================== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --asset-tag-bg: rgba(138, 180, 248, 0.12);
+    --asset-tag-bg-hover: rgba(138, 180, 248, 0.22);
+    --asset-tag-border-color: rgba(138, 180, 248, 0.8);
+
+    --asset-corner-income: #42C25F;
+    --asset-corner-expense: #FF6B6B;
+
+    --asset-tag-bg-disabled: rgba(120, 120, 120, 0.12);
+    --asset-tag-text-disabled: #aaa;
+  }
+}
+
+
+:root {
+  --primary: #2563eb;
+  --primary-light: #3b82f6;
+
+  --bg: #ffffff;
+  --bg-soft: #f8fafc;
+  --bg-card: #ffffff;
+
+  --text: #1e293b;
+  --text-soft: #64748b;
+  --text-fade: #94a3b8;
+
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+
+  /* 细则体验层补充变量（合并在一起，更规范） */
+  --base-font: 16px;
+  --line-height: 1.5;
+  --gap-sm: 8px;
+  --gap-md: 12px;
+  --radius-base: 8px;
+  --radius-card: 12px;
+  --arch-opacity: 0.6;
+  --transition: all 0.2s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #3b82f6;
+    --primary-light: #60a5fa;
+
+    --bg: #0f172a;
+    --bg-soft: #1e293b;
+    --bg-card: #1e293b;
+
+    --text: #f1f5f9;
+    --text-soft: #cbd5e1;
+    --text-fade: #64748b;
+
+    --border: #334155;
+    --border-light: #273444;
+
+    --success: #22c55e;
+    --warning: #fbbf24;
+    --danger: #f87171;
+
+    /* 深色模式下统一用你自己的变量，不再额外定义 --text-gray */
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* 遗漏：成功色/危险色/财务色 */
+:root {
+  --success: #00b42a;
+  --danger: #f53f3f;
+  --warning: #f6a60a;
+
+  /* ====== 全局语义别名变量（兼容内联样式调用，单一数据源） ====== */
+  /* 页面级背景/文本 */
+  --bg-page: #f7f8fa;
+  --bg-layer: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-normal: #1e293b;
+  --text-hint: #94a3b8;
+
+  /* 主色 RGB（供 rgba() 使用） */
+  --primary-rgb: 37, 99, 235;
+
+  /* 业务语义色（与文档内联 var(--color-xxx) 对齐） */
+  --color-ecology: #2E7D32;
+  --color-danger-red: #f53f3f;
+  --color-success: #00b42a;
+  --color-success-bg: rgba(0, 180, 42, 0.12);
+  --color-warn: #f6a60a;
+  --color-warn-bg: rgba(246, 166, 10, 0.12);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --success: #36d362;
+    --danger: #ff6b6b;
+    --warning: #ffc53d;
+
+    /* 深色模式语义别名同步 */
+    --bg-page: #0f172a;
+    --bg-layer: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-normal: #f1f5f9;
+    --text-hint: #64748b;
+
+    --primary-rgb: 59, 130, 246;
+
+    --color-ecology: #4CAF50;
+    --color-danger-red: #ff6b6b;
+    --color-success: #36d362;
+    --color-success-bg: rgba(54, 211, 98, 0.16);
+    --color-warn: #ffc53d;
+    --color-warn-bg: rgba(255, 197, 61, 0.16);
+  }
+}

@@ -1,0 +1,19 @@
+/* 7天回收站面板 */
+.recycle-panel {
+  padding: 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+}
+.recycle-item {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.recycle-countdown {
+  font-size: 12px;
+  color: var(--danger);
+}
+.recycle-restore { color: var(--primary); }
+.recycle-clear { color: var(--danger); }

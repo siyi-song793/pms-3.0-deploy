@@ -1,0 +1,29 @@
+/* PMS3.0 Layer1 全局只读/禁用状态规约 */
+
+/* 只读页面整体：仅禁止文本选择，不禁交互（浏览、导航、筛选都允许） */
+.is-readonly {
+  user-select: none;
+}
+/* 只读页面内禁止编辑的操作按钮（按需添加） */
+.is-readonly .fab,
+.is-readonly .task-check,
+.is-readonly .task-item {
+  pointer-events: none;
+  opacity: 0.5;
+}
+/* 全局禁用状态 */
+.is-disabled {
+  pointer-events: none;
+  opacity: 0.55;
+  user-select: none;
+}
+.is-disabled .btn,
+.is-disabled .input,
+.is-disabled .priority-option {
+  cursor: not-allowed;
+}
+/* 全局禁用交互拦截兜底 */
+*[disabled] {
+  pointer-events: none;
+  opacity: 0.6;
+}

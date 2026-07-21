@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+  <meta name="application-name" content="个人时间管理系统3.0" />
+<meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#2E7D32" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'" />
+  <title>个人时间管理系统 3.0｜PMS3.0</title>
+
+  <!-- 这里保留你原来的 link 不动，main.ts 也导入不冲突 -->
+  <link rel="stylesheet" href="/src/style/color-semantic.css" />
+  <link rel="stylesheet" href="/src/style/layout-global.css" />
+  <link rel="stylesheet" href="/src/style/tab-nav.css" />
+  <link rel="stylesheet" href="/src/style/embedded-widgets.css" />
+
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="./favicon/icon-192.png" />
+  <link rel="apple-touch-icon" href="./favicon/icon-512.png" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    :root {
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-left: env(safe-area-inset-left, 0px);
+      --safe-right: env(safe-area-inset-right, 0px);
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      padding-top: var(--safe-top);
+      padding-bottom: var(--safe-bottom);
+    }
+    .app-root {
+      width: 100%;
+      min-height: calc(100dvh - var(--safe-bottom));
+      padding: 16px var(--safe-right) 16px var(--safe-left);
+      padding-bottom: calc(80px + var(--safe-bottom));
+    }
+    .app-loading-fallback {
+      position: fixed; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: var(--bg-page); z-index: 999;
+      transition: opacity 0.3s ease;
+    }
+    .app-loading-fallback.hide {
+      opacity: 0; pointer-events: none;
+    }
+
+    /* 新增：页面切换样式，和 main.ts switchTab 对应 */
+    .page {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-loading-fallback" id="loading-fallback">
+    <div style="width:48px;height:48px;border:4px solid var(--border-light);border-top-color:var(--color-ecology);border-radius:50%;animation:spin 1s linear infinite"></div>
+    <p style="margin-top:16px;color:var(--text-hint);font-size:14px">PMS3.0 初始化中...</p>
+    <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+  </div>
+
+  <!-- 关键修正：main.ts 里用的是 id="app"，不是 app-root -->
+  <div id="app" class="app-root">
+    <!-- 三个页面：完全对应 main.ts 里的 switchTab -->
+    <div id="page-today" class="page" style="display:block;">
+      <!-- ① 顶部日期心情状态栏 -->
+      <div id="today-header" class="today-header"></div>
+      <!-- ② 筛选&四级完成率可视化区 -->
+      <div id="today-filter-bar" class="today-filter-bar"></div>
+      <!-- ③ 单行极简数据概览区 -->
+      <div id="today-overview" class="today-overview"></div>
+      <!-- ④ 主内容：习惯区 + 任务列表 -->
+      <div id="habit-area" class="habit-area"></div>
+      <div id="task-list"></div>
+      <!-- ⑤ 双悬浮功能入口 -->
+      <button id="fab-task" class="fab fab-primary">+</button>
+      <button id="fab-finance" class="fab fab-secondary">💰</button>
+    </div>
+    <div id="page-timeline" class="page"></div>
+    <div id="page-month" class="page"></div>
+  </div>
+
+  <div id="modal-root" style="position:fixed;inset:0;z-index:9999;pointer-events:none"></div>
+
+  <!-- 底部固定导航：今日 / 时序 / 月历 -->
+  <nav class="bottom-tab-nav">
+    <a href="#" data-tab="today" class="bottom-tab-item active">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span>今日</span>
+    </a>
+    <a href="#" data-tab="timeline" class="bottom-tab-item">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 1.5"/><path d="M10 2h4"/></svg>
+      <span>时序</span>
+    </a>
+    <a href="#" data-tab="month" class="bottom-tab-item">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
+      <span>月历</span>
+    </a>
+  </nav>
+
+  <!-- main.ts 路径正确 -->
+  <script type="module" src="./src/main.ts"></script>
+
+  <script>
+    // 加载完成隐藏 loading
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        var el = document.getElementById('loading-fallback');
+        if (el) el.classList.add('hide');
+      }, 600);
+    });
+
+    window.addEventListener('error', function(e) {
+      if(e.message && (e.message.indexOf('Failed to fetch') >= 0 || e.message.indexOf('网络错误') >= 0)) {
+        window.location.href = './offline-fallback.html';
+      }
+    });
+    window.addEventListener('offline', function() {
+      var el = document.getElementById('loading-fallback');
+      if (el) el.innerHTML = '<p style="color:var(--text-hint)">当前无网络，已切换离线模式</p>';
+    });
+  </script>
+</body>
+</html>

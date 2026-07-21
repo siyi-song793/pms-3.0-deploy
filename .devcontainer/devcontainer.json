@@ -1,0 +1,38 @@
+{
+  "name": "PMS3.0 云端开发环境",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20-bookworm",
+  "features": {
+    "node": {
+      "version": "20.x"
+    },
+    "typescript": {
+      "version": "latest"
+    }
+  },
+  "postCreateCommand": "npm install -g vite && npm ci",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "github.copilot",
+        "github.copilot-chat",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ],
+      "settings": {
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "eslint.validate": ["typescript"]
+      }
+    }
+  },
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "PMS3.0 Dev Server",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "remoteEnv": {
+    "NODE_OPTIONS": "--dns-result-order=ipv4first",
+    "DNS_SERVER": "1.1.1.1,8.8.8.8"
+  }
+}

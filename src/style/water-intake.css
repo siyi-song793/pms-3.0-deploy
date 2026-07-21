@@ -1,0 +1,392 @@
+/* ===== 饮水台账独立页面样式 ===== */
+
+/* 页面容器 */
+.water-page {
+  padding: 0 var(--safe-padding, 16px) calc(var(--safe-bottom, 0px) + 80px);
+  max-width: var(--max-width, 480px);
+  margin: 0 auto;
+}
+
+/* 第一层：统计进度卡片 */
+.water-progress-card {
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, #e8e8e8);
+  border-radius: var(--radius-lg, 14px);
+  padding: 20px;
+  margin-bottom: 16px;
+  border-left: 4px solid var(--color-water, #27AE60);
+}
+
+.water-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.water-progress-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a2e);
+}
+
+.water-progress-goal {
+  font-size: 12px;
+  color: var(--text-hint, #999);
+}
+
+.water-progress-amount {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.water-progress-current {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--color-water, #27AE60);
+  line-height: 1;
+}
+
+.water-progress-unit {
+  font-size: 16px;
+  color: var(--text-soft, #666);
+  margin-left: 4px;
+}
+
+.water-progress-bar-wrap {
+  height: 8px;
+  background: var(--bg-soft, #f0f0f0);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.water-progress-bar {
+  height: 100%;
+  background: var(--color-water, #27AE60);
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.water-progress-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-hint, #999);
+}
+
+/* 第二层：快捷录入区 */
+.water-quick-section {
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, #e8e8e8);
+  border-radius: var(--radius-lg, 14px);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.water-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a2e);
+  margin-bottom: 12px;
+}
+
+.water-scene-toggle {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.water-scene-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border, #e8e8e8);
+  background: transparent;
+  cursor: pointer;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-soft, #666);
+  transition: all 0.2s;
+}
+
+.water-scene-btn.active {
+  border-color: var(--color-water, #27AE60);
+  background: var(--color-water-bg, rgba(39, 174, 96, 0.08));
+  color: var(--color-water, #27AE60);
+  font-weight: 600;
+}
+
+.water-scene-btn:active {
+  opacity: 0.7;
+}
+
+.water-scene-btn.solid {
+  border-style: solid;
+}
+
+.water-scene-btn.dash {
+  border-style: dashed;
+}
+
+.water-cat-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+  white-space: nowrap;
+  touch-action: pan-x;
+  margin-bottom: 14px;
+}
+
+.water-cat-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.water-cat-pill {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border, #e8e8e8);
+  background: transparent;
+  color: var(--text-soft, #666);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.water-cat-pill.active {
+  border-color: var(--color-water, #27AE60);
+  background: var(--color-water-bg, rgba(39, 174, 96, 0.08));
+  color: var(--color-water, #27AE60);
+  font-weight: 600;
+}
+
+.water-cat-pill:active {
+  opacity: 0.7;
+}
+
+.water-amount-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.water-amount-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border, #e8e8e8);
+  background: var(--bg-soft, #f5f5f5);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--text-primary, #1a1a2e);
+}
+
+.water-amount-btn:active {
+  opacity: 0.8;
+  background: var(--color-water, #27AE60);
+  color: #fff;
+  border-color: var(--color-water, #27AE60);
+}
+
+.water-custom-amount {
+  margin-bottom: 12px;
+}
+
+.water-amount-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border, #e8e8e8);
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  background: var(--bg-soft, #f5f5f5);
+  color: var(--text-primary, #1a1a2e);
+  box-sizing: border-box;
+}
+
+.water-amount-input:focus {
+  border-color: var(--color-water, #27AE60);
+}
+
+.water-amount-input::placeholder {
+  color: var(--text-hint, #999);
+}
+
+.water-submit-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: var(--color-water, #27AE60);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.water-submit-btn:active {
+  opacity: 0.85;
+}
+
+/* 第三层：当日记录列表 */
+.water-record-section {
+  margin-bottom: 16px;
+}
+
+.water-record-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.water-record-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, #e8e8e8);
+  border-radius: 10px;
+  border-left: 3px solid var(--color-water, #27AE60);
+}
+
+.wr-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.wr-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.wr-cat {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary, #1a1a2e);
+}
+
+.wr-scene {
+  font-size: 11px;
+  color: var(--text-hint, #999);
+}
+
+.wr-amount {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-water, #27AE60);
+  flex-shrink: 0;
+}
+
+.wr-del-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--border, #e8e8e8);
+  border-radius: 6px;
+  font-size: 11px;
+  background: transparent;
+  color: var(--text-hint, #999);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.wr-del-btn:active {
+  background: var(--color-expense, #EA4335);
+  color: #fff;
+  border-color: var(--color-expense, #EA4335);
+}
+
+/* 第四层：底部批量操作栏 */
+.water-batch-bar {
+  position: fixed;
+  bottom: calc(var(--safe-bottom, 0px) + 64px);
+  left: 0;
+  right: 0;
+  padding: 12px var(--safe-padding, 16px);
+  background: var(--bg-card, #fff);
+  border-top: 1px solid var(--border, #e8e8e8);
+  z-index: 50;
+}
+
+.water-batch-btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border, #e8e8e8);
+  background: var(--bg-soft, #f5f5f5);
+  font-size: 13px;
+  color: var(--text-soft, #666);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.water-batch-btn.danger:active {
+  background: var(--color-expense, #EA4335);
+  color: #fff;
+  border-color: var(--color-expense, #EA4335);
+}
+
+.water-batch-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* 空状态复用 */
+.water-page .empty-state {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.water-page .empty-icon {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.water-page .empty-text {
+  font-size: 14px;
+  color: var(--text-soft, #666);
+  margin-bottom: 4px;
+}
+
+.water-page .empty-hint {
+  font-size: 12px;
+  color: var(--text-hint, #999);
+}
+
+/* 深色模式适配 */
+@media (prefers-color-scheme: dark) {
+  .water-progress-bar {
+    background: var(--color-water, #27AE60);
+  }
+  .water-scene-btn.active {
+    background: rgba(39, 174, 96, 0.15);
+  }
+  .water-cat-pill.active {
+    background: rgba(39, 174, 96, 0.15);
+  }
+}
+
+/* 移动端适配 */
+@media (max-width: 480px) {
+  .water-progress-current {
+    font-size: 40px;
+  }
+  .water-amount-bar {
+    gap: 6px;
+  }
+  .water-amount-btn {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+}

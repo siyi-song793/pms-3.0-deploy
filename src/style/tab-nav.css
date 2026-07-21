@@ -1,0 +1,60 @@
+.tab-nav {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-nav a {
+  color: var(--text-soft);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-size: 15px;
+  white-space: nowrap;
+  transition: 0.2s;
+}
+.tab-nav a.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* ========== 修复7：顶部88px心情状态栏 ========== */
+.status-top-bar {
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--gap-md);
+  position: sticky;
+  top: env(safe-area-inset-top);
+  z-index: 9;
+  border-bottom: 1px solid var(--border);
+}
+.status-top-bar .icon-btn {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+}
+@supports (padding-top: env(safe-area-inset-top)) {
+  .status-top-bar { padding-top: env(safe-area-inset-top); }
+}
+
+/* 回到本周 / 回到今日 按钮 */
+.btn-back-today {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 16px;
+  background: var(--bg-soft);
+  font-size: 14px;
+}
+.btn-back-today:active {
+  background: var(--border);
+}

@@ -1,0 +1,169 @@
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.task-item:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.task-item:active {
+  transform: scale(0.995);
+}
+
+.task-check {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  transition: all 0.2s ease;
+}
+.task-check.checked {
+  background: var(--success);
+  border-color: var(--success);
+}
+
+.task-content {
+  flex: 1;
+}
+.task-title {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 2px;
+  transition: color 0.2s ease;
+}
+.task-title.completed {
+  text-decoration: line-through;
+  color: var(--text-fade);
+}
+.task-time {
+  font-size: 13px;
+  color: var(--text-fade);
+}
+
+/* 补齐四级优先级（回溯核心遗漏：新增紧急级critical） */
+.task-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.task-tag.critical {
+  background: rgba(220, 38, 38, 0.12);
+  color: #dc2626;
+}
+.task-tag.urgent {
+  background: rgba(239,68,68,0.1);
+  color: var(--danger);
+}
+.task-tag.normal {
+  background: rgba(37,99,235,0.1);
+  color: var(--primary);
+}
+.task-tag.low {
+  background: rgba(148,163,184,0.1);
+  color: var(--text-fade);
+}
+
+/* 今日页：任务折叠/展开动画（隐性板块遗漏补齐） */
+.task-collapse-wrap {
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.task-collapse-icon {
+  transition: transform 0.3s ease;
+}
+.task-collapse-icon.open {
+  transform: rotate(180deg);
+}
+
+
+/* ========== 修复11：任务条目左右滑 ========== */
+.slide-task {
+  position: relative;
+  overflow: hidden;
+}
+.slide-content {
+  transition: transform 0.2s ease;
+}
+.slide-content.move { opacity: 0.8; }
+.slide-actions {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+}
+.slide-edit {
+  background: var(--primary);
+  color: #fff;
+  padding: 0 16px;
+  display: grid;
+  place-items: center;
+}
+.slide-del {
+  background: var(--danger);
+  color: #fff;
+  padding: 0 16px;
+  display: grid;
+  place-items: center;
+}
+
+/* ========== 修复12：习惯卡片双态 ========== */
+.habit-card {
+  border: 1px solid transparent;
+  border-radius: var(--radius-card);
+  padding: var(--gap-md);
+}
+.habit-card--edit { border-color: var(--primary); }
+.habit-card--edit .edit-icon { display: block; }
+.habit-card--readonly .edit-icon { display: none; }
+.habit-card--readonly { pointer-events: none; }
+
+/* ========== 修复13：饮水台账虚实线胶囊 ========== */
+.capsule-solid { border: 1px solid var(--primary); }
+.capsule-dash { border: 1px dashed var(--primary); }
+@media (prefers-color-scheme: dark) {
+  .capsule-dash { border-color: #8ab4f8; }
+}
+
+
+/* 健康补给 / 每日自省 打卡卡片 */
+.habit-toggle-card {
+  padding: 14px 16px;
+  border-radius: var(--radius-card);
+  background: var(--bg-card);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--border);
+}
+.habit-toggle-card.checked {
+  background: rgba(64, 128, 255, 0.08);
+  border-color: var(--primary);
+}
+
+/* 提醒角标 */
+.reminder-badge {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--danger);
+  position: absolute;
+  top: 4px;
+  right: 4px;
+}
+/* 静默时段 / 已达标 */
+.reminder-quiet { opacity: 0.6; }
+.reminder-done { color: var(--success); }
