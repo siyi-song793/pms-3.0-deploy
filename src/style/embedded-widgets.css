@@ -39,8 +39,10 @@
   transform: scale(0.98);
 }
 .hqc-icon {
-  font-size: 24px;
+  width: 22px;
+  height: 22px;
   flex-shrink: 0;
+  color: var(--text-soft);
 }
 .hqc-body {
   flex: 1;

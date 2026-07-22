@@ -550,7 +550,7 @@ async function renderHabitArea() {
   el.innerHTML = `
     <div class="habit-scroll">
       <div class="habit-card water-quick-card" id="water-quick-card">
-        <div class="hqc-icon">💧</div>
+        <svg class="hqc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0L12 2.69z"/></svg>
         <div class="hqc-body">
           <div class="hqc-title">饮水台账</div>
           <div class="hqc-progress">
@@ -563,7 +563,7 @@ async function renderHabitArea() {
 
       <div class="habit-card status-card" id="health-card" style="min-width:140px">
         <span class="status-dot ${healthDone ? 'done' : ''}"></span>
-        <div class="hqc-icon">💊</div>
+        <svg class="hqc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5l10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7z"/><path d="M8.5 8.5l7 7"/></svg>
         <div class="hqc-body">
           <div class="hqc-title">健康补给</div>
           <div class="hqc-text">${healthDone ? '已完成' : '待完成'}</div>
@@ -572,7 +572,7 @@ async function renderHabitArea() {
 
       <div class="habit-card status-card" id="reflection-card" style="min-width:140px">
         <span class="status-dot ${reflectionDone ? 'done' : ''}"></span>
-        <div class="hqc-icon">🪞</div>
+        <svg class="hqc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M9 16l2 2 4-4"/></svg>
         <div class="hqc-body">
           <div class="hqc-title">每日自省</div>
           <div class="hqc-text">${reflectionDone ? '已完成' : '待完成'}</div>
