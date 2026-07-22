@@ -4,8 +4,8 @@ import path from 'node:path'
 
 export default defineConfig({
   root: process.cwd(),
-  // 使用相对路径，确保 dist/index.html 可直接通过 file:// 协议打开运行
-  base: './',
+  // GitHub Pages 子路径部署
+  base: '/pms-3.0-deploy/',
   build: {
     outDir: 'dist',
     emptyOutDir: true,
@@ -46,8 +46,8 @@ export default defineConfig({
       manifest: {
         name: '个人时间管理系统3.0',
         short_name: 'PMS3.0',
-        start_url: './',
-        scope: './',
+        start_url: '/pms-3.0-deploy/',
+        scope: '/pms-3.0-deploy/',
         display: 'standalone',
         orientation: 'portrait-primary',
         background_color: '#f7f8fa',
